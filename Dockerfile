@@ -4,7 +4,7 @@ MAINTAINER  "Mingcai SHEN <archsh@gmail.com>"
 ENV PGPOOL_VERSION 3.7.2
 
 RUN apk update \
-    && apk add build-base linux-headers postgresql-dev \
+    && apk add build-base linux-headers postgresql-dev postgresql-libs \
     && wget http://www.pgpool.net/download.php?f=pgpool-II-${PGPOOL_VERSION}.tar.gz -O /tmp/pgpool-II-${PGPOOL_VERSION}.tar.gz \
     && cd /tmp \
     && tar zxf pgpool-II-${PGPOOL_VERSION}.tar.gz \

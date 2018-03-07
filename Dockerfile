@@ -18,3 +18,5 @@ RUN cd /tmp/pgpool-II-${PGPOOL_VERSION} \
     && make \
     && make install \
     && cd .. && rm -rf pgpool-II-${PGPOOL_VERSION}
+
+RUN apk del build-base linux-headers postgresql-dev

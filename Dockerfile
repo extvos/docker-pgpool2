@@ -17,3 +17,30 @@ RUN apk update \
     && make install \
     && cd .. && rm -rf pgpool-II-${PGPOOL_VERSION} \
     && apk del build-base linux-headers postgresql-dev
+
+ENV PCP_PORT 9898
+ENV PCP_USERNAME postgres
+ENV PCP_PASSWORD postgres
+ENV PGPOOL_PORT 5432
+ENV PGPOOL_BACKENDS 1:postgres:5432
+ENV TRUST_NETWORK 0.0.0.0/0
+
+ENV NUM_INIT_CHILDREN 32
+ENV MAX_POOL 4
+ENV CHILD_LIFE_TIME 300
+ENV CHILD_MAX_CONNECTIONS 0
+ENV CONNECTION_LIFE_TIME 0
+ENV CLIENT_IDLE_LIMIT 0
+
+ADD config/pcp.conf.template /usr/share/pgpool2/pcp.conf.template
+ADD config/pgpool.conf.template /usr/share/pgpool2/pgpool.conf.template
+ADD config/pool_hba.conf.template /etc/pgpool2/pool_hba.conf.template
+ADD entrypoint.sh /
+RUN chmod +x /entrypoint.sh
+
+EXPOSE 9898
+EXPOSE 5432
+
+ENTRYPOINT ["/bin/sh", "/entrypoint.sh"]
+
+

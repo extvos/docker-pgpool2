@@ -6,9 +6,9 @@ set -e
 /usr/bin/gucci /usr/share/pgpool2/pgpool.conf.template > /etc/pgpool2/pgpool.conf
 /usr/bin/gucci /usr/share/pgpool2/pool_hba.conf.template > /etc/pgpool2/pool_hba.conf
 
-if [ "$1" = 'pgpool-server' ]; then
-	exec pgpool "$@"
-fi
+# if [ "$1" = 'pgpool-server' ]; then
+# 	exec pgpool "$@"
+# fi
 
 exec "$@"
 

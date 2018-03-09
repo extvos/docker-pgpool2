@@ -18,6 +18,9 @@ RUN apk update \
     && cd .. && rm -rf pgpool-II-${PGPOOL_VERSION} \
     && apk del build-base linux-headers postgresql-dev
 
+RUN wget https://github.com/noqcks/gucci/releases/download/v0.0.4/gucci-v0.0.4-linux-amd64 -O /usr/bin/gucci \
+    && chmod +x /usr/bin/gucci
+
 ENV PCP_PORT 9898
 ENV PCP_USERNAME postgres
 ENV PCP_PASSWORD postgres
@@ -34,7 +37,7 @@ ENV CLIENT_IDLE_LIMIT 0
 
 ADD config/pcp.conf.template /usr/share/pgpool2/pcp.conf.template
 ADD config/pgpool.conf.template /usr/share/pgpool2/pgpool.conf.template
-ADD config/pool_hba.conf.template /etc/pgpool2/pool_hba.conf.template
+ADD config/pool_hba.conf.template /usr/share//pgpool2/pool_hba.conf.template
 ADD entrypoint.sh /
 RUN chmod +x /entrypoint.sh
 

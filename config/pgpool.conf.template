@@ -28,7 +28,7 @@ listen_addresses = '*'
                                    # Host name or IP address to listen on:
                                    # '*' for all, '' for no TCP/IP connections
                                    # (change requires restart)
-port = {{ PGPOOL_PORT }}
+port = {{ .PGPOOL_PORT }}
                                    # Port number
                                    # (change requires restart)
 socket_dir = '/var/run/postgresql'
@@ -41,7 +41,7 @@ socket_dir = '/var/run/postgresql'
 # - pgpool Communication Manager Connection Settings -
 pcp_listen_addresses = '*'
 
-pcp_port = {{ PCP_PORT }}
+pcp_port = {{ .PCP_PORT }}
                                    # Port number for pcp
                                    # (change requires restart)
 pcp_socket_dir = '/var/run/postgresql'
@@ -68,13 +68,13 @@ pcp_socket_dir = '/var/run/postgresql'
 #backend_weight1 = 1
 #backend_data_directory1 = '/data1'
 #backend_flag1 = 'ALLOW_TO_FAILOVER'
-{% for backend in PGPOOL_BACKENDS %}
-{% set tokens = backend.split(':') %}
-backend_hostname{{ tokens[0] }} = '{{ tokens[1] }}'
-backend_port{{ tokens[0] }} = {{ tokens[2] }}
-backend_weight{{ tokens[0] }} = 1
-backend_flag{{ tokens[0] }} = 'ALLOW_TO_FAILOVER'
-{% endfor %}
+{{range $idx, $bkend := split .PGPOOL_BACKENDS "," }}
+# {{$idx}} = {{$bkend}} {{$bks := split $bkend ":"}}
+backend_hostname{{ $idx }} = '{{index $bks 0}}'
+backend_port{{ $idx }} = {{index $bks 1}}
+backend_weight{{ $idx }} = {{index $bks 2}}
+backend_flag{{ $idx }} = 'ALLOW_TO_FAILOVER'
+{{end}}
 
 # - Authentication -
 
@@ -110,24 +110,24 @@ ssl = off
 
 # - Pool size -
 
-num_init_children = 32
+num_init_children = {{.NUM_INIT_CHILDREN}}
                                    # Number of pools
                                    # (change requires restart)
-max_pool = 4
+max_pool = {{.MAX_POOL}}
                                    # Number of connections per pool
                                    # (change requires restart)
 
 # - Life time -
 
-child_life_time = 300
+child_life_time = {{.CHILD_LIFE_TIME}}
                                    # Pool exits after being idle for this many seconds
-child_max_connections = 0
+child_max_connections = {{.CHILD_MAX_CONNECTIONS}}
                                    # Pool exits after receiving that many connections
                                    # 0 means no exit
-connection_life_time = 0
+connection_life_time = {{.CONNECTION_LIFE_TIME}}
                                    # Connection to backend closes after being idle for this many seconds
                                    # 0 means no close
-client_idle_limit = 0
+client_idle_limit = {{.CLIENT_IDLE_LIMIT}}
                                    # Client is disconnected after being idle for that many seconds
                                    # (even inside an explicit transactions!)
                                    # 0 means no disconnection

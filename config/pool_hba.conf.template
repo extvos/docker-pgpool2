@@ -1,2 +1,2 @@
 local   all         all                                      trust
-host    all         all         {{ TRUST_NETWORK }}          trust
+host    all         all         {{ .TRUST_NETWORK }}          trust

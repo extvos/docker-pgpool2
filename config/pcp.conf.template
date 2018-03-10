@@ -26,4 +26,4 @@
 # be ignored. Again, no spaces or tabs allowed before '#'.
 
 # USERID:MD5PASSWD
-{{ .PCP_USERNAME }}:{{ .PCP_PASSWORD }}
+{{ .PCP_USERNAME }}:{{ .PCP_PASSWORD_MD5 }}

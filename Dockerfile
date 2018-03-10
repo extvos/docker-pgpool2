@@ -16,7 +16,8 @@ RUN apk update \
     && make \
     && make install \
     && cd .. && rm -rf pgpool-II-${PGPOOL_VERSION} \
-    && apk del build-base linux-headers postgresql-dev
+    && apk del build-base linux-headers postgresql-dev \
+    && mkdir -p /etc/pgpool2/
 
 RUN wget https://github.com/noqcks/gucci/releases/download/v0.0.4/gucci-v0.0.4-linux-amd64 -O /usr/bin/gucci \
     && chmod +x /usr/bin/gucci

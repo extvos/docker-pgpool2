@@ -20,7 +20,8 @@ RUN apk update \
     && mkdir -p /etc/pgpool2/
 
 RUN wget https://github.com/noqcks/gucci/releases/download/v0.0.4/gucci-v0.0.4-linux-amd64 -O /usr/bin/gucci \
-    && chmod +x /usr/bin/gucci
+    && chmod +x /usr/bin/gucci \
+    && mkdir -p /var/run/pgpool/ /etc/pgpool2/
 
 ENV PCP_PORT 9898
 ENV PCP_USERNAME postgres

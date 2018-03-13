@@ -10,9 +10,7 @@ RUN apk update \
     && tar zxf pgpool-II-${PGPOOL_VERSION}.tar.gz \
     && rm -f pgpool-II-${PGPOOL_VERSION}.tar.gz \
     && cd /tmp/pgpool-II-${PGPOOL_VERSION} \
-    && ./configure --prefix=/usr \
-                   --sysconfdir=/etc \
-                   --with-openssl \
+    && ./configure --with-openssl \
     && make \
     && make install \
     && cd .. && rm -rf pgpool-II-${PGPOOL_VERSION} \

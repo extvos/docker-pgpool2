@@ -48,6 +48,6 @@ EXPOSE 5432
 
 ENTRYPOINT ["/bin/sh", "/entrypoint.sh"]
 
-CMD ["pgpool", "-ndD", "-f /etc/pgpool2/pgpool.conf", "-F /etc/pgpool2/pcp.conf"]
+CMD ["pgpool", "-ndD", "-f /etc/pgpool.conf", "-F /etc/pcp.conf"]
 
 

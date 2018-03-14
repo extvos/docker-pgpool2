@@ -1,4 +1,4 @@
-FROM extvos/alpine
+FROM extvos/alpine:3.6
 MAINTAINER  "Mingcai SHEN <archsh@gmail.com>"
 
 ENV PGPOOL_VERSION 3.7.2
@@ -10,7 +10,9 @@ RUN apk update \
     && tar zxf pgpool-II-${PGPOOL_VERSION}.tar.gz \
     && rm -f pgpool-II-${PGPOOL_VERSION}.tar.gz \
     && cd /tmp/pgpool-II-${PGPOOL_VERSION} \
-    && ./configure --with-openssl \
+    && ./configure --prefix=/usr \
+                   --sysconfdir=/etc \
+                   --with-openssl \
     && make \
     && make install \
     && cd .. && rm -rf pgpool-II-${PGPOOL_VERSION} \

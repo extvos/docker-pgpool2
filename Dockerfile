@@ -4,7 +4,7 @@ MAINTAINER  "Mingcai SHEN <archsh@gmail.com>"
 ENV PGPOOL_VERSION 3.7.0
 
 RUN apk update \
-    && apk add pgpool \
+    && apk add --no-cache pgpool \
     && mkdir -p /etc/pgpool2/
 
 RUN wget https://github.com/noqcks/gucci/releases/download/v0.0.4/gucci-v0.0.4-linux-amd64 -O /usr/bin/gucci \

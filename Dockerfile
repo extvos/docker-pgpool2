@@ -1,22 +1,10 @@
-FROM extvos/alpine:3.6
+FROM extvos/alpine:3.7
 MAINTAINER  "Mingcai SHEN <archsh@gmail.com>"
 
-ENV PGPOOL_VERSION 3.7.2
+ENV PGPOOL_VERSION 3.7.0
 
 RUN apk update \
-    && apk add build-base linux-headers postgresql-dev postgresql-libs \
-    && wget http://www.pgpool.net/download.php?f=pgpool-II-${PGPOOL_VERSION}.tar.gz -O /tmp/pgpool-II-${PGPOOL_VERSION}.tar.gz \
-    && cd /tmp \
-    && tar zxf pgpool-II-${PGPOOL_VERSION}.tar.gz \
-    && rm -f pgpool-II-${PGPOOL_VERSION}.tar.gz \
-    && cd /tmp/pgpool-II-${PGPOOL_VERSION} \
-    && ./configure --prefix=/usr \
-                   --sysconfdir=/etc \
-                   --with-openssl \
-    && make \
-    && make install \
-    && cd .. && rm -rf pgpool-II-${PGPOOL_VERSION} \
-    && apk del build-base linux-headers postgresql-dev \
+    && apk add pgpool \
     && mkdir -p /etc/pgpool2/
 
 RUN wget https://github.com/noqcks/gucci/releases/download/v0.0.4/gucci-v0.0.4-linux-amd64 -O /usr/bin/gucci \
@@ -48,6 +36,6 @@ EXPOSE 5432
 
 ENTRYPOINT ["/bin/sh", "/entrypoint.sh"]
 
-CMD ["pgpool", "-ndD", "-f /etc/pgpool.conf", "-F /etc/pcp.conf"]
+CMD ["pgpool", "-n", "-f", "/etc/pgpool.conf", "-F", "/etc/pcp.conf"]
 
 

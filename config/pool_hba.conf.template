@@ -65,4 +65,4 @@
 local   all         all                               trust
 # IPv4 local connections:
 host    all         all         127.0.0.1/32          trust
-host    all         all         {{ .TRUST_NETWORK }}          trust
+host    all         all         {{ .TRUST_NETWORK }}          md5

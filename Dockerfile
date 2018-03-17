@@ -17,6 +17,8 @@ ENV PCP_PASSWORD postgres
 ENV PGPOOL_PORT 5432
 ENV PGPOOL_BACKENDS postgres:5432:10
 ENV TRUST_NETWORK 0.0.0.0/0
+ENV PG_USERNAME postgres
+ENV PG_PASSWORD postgres
 
 ENV NUM_INIT_CHILDREN 32
 ENV MAX_POOL 4
@@ -36,6 +38,6 @@ EXPOSE 5432
 
 ENTRYPOINT ["/bin/sh", "/entrypoint.sh"]
 
-CMD ["pgpool", "-n", "-f", "/etc/pgpool.conf", "-F", "/etc/pcp.conf"]
+CMD ["pgpool", "-n", "-f", "/etc/pgpool.conf", "-F", "/etc/pcp.conf", "-a", "/etc/pool_hba.conf"]
 
 

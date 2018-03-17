@@ -64,5 +64,5 @@
 # "local" is for Unix domain socket connections only
 local   all         all                               trust
 # IPv4 local connections:
-local   all         all         127.0.0.1/32                  trust
+host    all         all         127.0.0.1/32          trust
 host    all         all         {{ .TRUST_NETWORK }}          trust

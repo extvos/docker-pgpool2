@@ -1,7 +1,5 @@
-FROM extvos/alpine:3.7
+FROM extvos/alpine:latest
 MAINTAINER  "Mingcai SHEN <archsh@gmail.com>"
-
-ENV PGPOOL_VERSION 3.7.0
 
 RUN apk update \
     && apk add --no-cache pgpool \

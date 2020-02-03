@@ -2,7 +2,7 @@ FROM extvos/alpine:latest
 MAINTAINER  "Mingcai SHEN <archsh@gmail.com>"
 
 RUN apk update \
-    && apk add --no-cache pgpool \
+    && apk add --no-cache pgpool postgresql-client \
     && mkdir -p /etc/pgpool2/
 
 RUN wget https://github.com/noqcks/gucci/releases/download/v0.0.4/gucci-v0.0.4-linux-amd64 -O /usr/bin/gucci \

@@ -27,7 +27,7 @@ ENV CLIENT_IDLE_LIMIT 0
 
 ADD config/pcp.conf.template /usr/share/pgpool2/pcp.conf.template
 ADD config/pgpool.conf.template /usr/share/pgpool2/pgpool.conf.template
-ADD config/pool_hba.conf.template /usr/share//pgpool2/pool_hba.conf.template
+ADD config/pool_hba.conf.template /usr/share/pgpool2/pool_hba.conf.template
 ADD entrypoint.sh /
 RUN chmod +x /entrypoint.sh
 

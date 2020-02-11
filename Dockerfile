@@ -29,6 +29,8 @@ ENV SEARCH_PRIMARY_NODE_TIMEOUT 3
 ADD config/pcp.conf.template /usr/share/pgpool2/pcp.conf.template
 ADD config/pgpool.conf.template /usr/share/pgpool2/pgpool.conf.template
 ADD config/pool_hba.conf.template /usr/share/pgpool2/pool_hba.conf.template
+ADD config/pcppass.template /usr/share/pgpool2/pcppass.template
+ADD autohealing.sh.template /usr/share/pgpool2/autohealing.sh.template
 ADD entrypoint.sh /
 RUN chmod +x /entrypoint.sh
 

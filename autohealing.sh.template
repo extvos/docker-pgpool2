@@ -1,0 +1,37 @@
+#!/bin/sh
+
+# This is an example for a two node setup with streaming replication
+
+PRIMARY_HOST=postgresql-primary
+PRIMARY_PORT=5432
+PRIMARY_NODE=0
+
+REPLICA_HOST=postgresql-replica
+REPLICA_PORT=5432
+REPLICA_NODE=1
+
+PSQL_USER={{.PG_USERNAME}}
+PSQL_PASS={{.PG_PASSWORD}}
+
+# even more hacks
+export PGPASSWORD=$PSQL_PASS
+
+PRIMARY_STATUS=`/usr/bin/psql -t -h $PRIMARY_HOST -U $PSQL_USER -p $PRIMARY_PORT -c "select pg_is_in_recovery()" 2> /dev/null | xargs`
+REPLICA_STATUS=`/usr/bin/psql -t -h $REPLICA_HOST -U $PSQL_USER -p $REPLICA_PORT -c "select pg_is_in_recovery()" 2> /dev/null | xargs`
+
+# bruteforce-hammer
+if [ "$PRIMARY_STATUS" == "f" ]
+then
+    pcp_attach_node --node=$PRIMARY_NODE -U $PSQL_USER -w
+    echo "Attached primary..."
+else
+    echo "Primary is not healthy: $PRIMARY_STATUS"
+fi
+
+if [ "$REPLICA_STATUS" == "t" ]
+then
+    pcp_attach_node --node=$REPLICA_NODE -U $PSQL_USER -w
+    echo "Attached replica..."
+else
+    echo "Replica is not healthy: $REPLICA_STATUS"
+fi

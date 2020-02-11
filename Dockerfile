@@ -24,6 +24,7 @@ ENV CHILD_LIFE_TIME 300
 ENV CHILD_MAX_CONNECTIONS 0
 ENV CONNECTION_LIFE_TIME 0
 ENV CLIENT_IDLE_LIMIT 0
+ENV SEARCH_PRIMARY_NODE_TIMEOUT 3
 
 ADD config/pcp.conf.template /usr/share/pgpool2/pcp.conf.template
 ADD config/pgpool.conf.template /usr/share/pgpool2/pgpool.conf.template

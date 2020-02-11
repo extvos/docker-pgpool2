@@ -37,6 +37,6 @@ EXPOSE 5432
 
 ENTRYPOINT ["/bin/sh", "/entrypoint.sh"]
 
-CMD ["pgpool", "-n", "-f", "/etc/pgpool.conf", "-F", "/etc/pcp.conf", "-a", "/etc/pool_hba.conf"]
+CMD ["pgpool", "-n", "-f", "/etc/pgpool2/pgpool.conf", "-F", "/etc/pgpool2/pcp.conf", "-a", "/etc/pgpool2/pool_hba.conf"]
 
 

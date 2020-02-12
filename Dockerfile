@@ -24,10 +24,13 @@ ENV CHILD_LIFE_TIME 300
 ENV CHILD_MAX_CONNECTIONS 0
 ENV CONNECTION_LIFE_TIME 0
 ENV CLIENT_IDLE_LIMIT 0
+ENV SEARCH_PRIMARY_NODE_TIMEOUT 3
 
 ADD config/pcp.conf.template /usr/share/pgpool2/pcp.conf.template
 ADD config/pgpool.conf.template /usr/share/pgpool2/pgpool.conf.template
-ADD config/pool_hba.conf.template /usr/share//pgpool2/pool_hba.conf.template
+ADD config/pool_hba.conf.template /usr/share/pgpool2/pool_hba.conf.template
+ADD config/pcppass.template /usr/share/pgpool2/pcppass.template
+ADD autohealing.sh.template /usr/share/pgpool2/autohealing.sh.template
 ADD entrypoint.sh /
 RUN chmod +x /entrypoint.sh
 
@@ -36,6 +39,6 @@ EXPOSE 5432
 
 ENTRYPOINT ["/bin/sh", "/entrypoint.sh"]
 
-CMD ["pgpool", "-n", "-f", "/etc/pgpool.conf", "-F", "/etc/pcp.conf", "-a", "/etc/pool_hba.conf"]
+CMD ["pgpool", "-n", "-f", "/etc/pgpool2/pgpool.conf", "-F", "/etc/pgpool2/pcp.conf", "-a", "/etc/pgpool2/pool_hba.conf"]
 
 
